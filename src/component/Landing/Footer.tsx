@@ -36,16 +36,16 @@ function Footer(){
                                 <span className="text-white font-medium">Follow Us:</span>
                                 <div className="flex gap-3">
                                     <a href="#" className="w-10 h-10 bg-gray-700 hover:bg-[#E00912] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                                        <ion-icon name="logo-facebook" class="text-lg"></ion-icon>
+                                        {/* <ion-icon name="logo-facebook" class="text-lg"></ion-icon> */}
                                     </a>
                                     <a href="#" className="w-10 h-10 bg-gray-700 hover:bg-[#E00912] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                                        <ion-icon name="logo-instagram" class="text-lg"></ion-icon>
+                                        {/* <ion-icon name="logo-instagram" class="text-lg"></ion-icon> */}
                                     </a>
                                     <a href="#" className="w-10 h-10 bg-gray-700 hover:bg-[#E00912] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                                        <ion-icon name="logo-twitter" class="text-lg"></ion-icon>
+                                        {/* <ion-icon name="logo-twitter" class="text-lg"></ion-icon> */}
                                     </a>
                                     <a href="#" className="w-10 h-10 bg-gray-700 hover:bg-[#E00912] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110">
-                                        <ion-icon name="logo-linkedin" class="text-lg"></ion-icon>
+                                        {/* <ion-icon name="logo-linkedin" class="text-lg"></ion-icon> */}
                                     </a>
                                 </div>
                             </div>
