@@ -34,9 +34,13 @@ const Home = () => {
           this year!
         </p>
 
-        <button className="mt-4 text-lg md:text-xl px-8 py-3 bg-[#6A0DAD] text-white font-semibold rounded-full shadow-lg border-2 border-[#6A0DAD] hover:bg-[#e8d4f5] hover:text-[#6A0DAD] hover:scale-105 transition-all duration-300 ease-in-out">
+        <a href="#" className="mt-4 text-sm md:text-xl md:hidden px-8 py-3 bg-[#6A0DAD] text-white font-semibold rounded-full shadow-lg border-2 border-[#6A0DAD] hover:bg-[#e8d4f5] hover:text-[#6A0DAD] hover:scale-105 transition-all duration-300 ease-in-out">
+          Register Now
+        </a>
+        <a href="#" className="mt-4 text-sm md:text-xl max-md:hidden px-8 py-3 hover:text-white font-semibold rounded-full shadow-lg border-2 border-[#6A0DAD] hover:bg-[#6A0DAD] text-[#6A0DAD] hover:scale-105 transition-all duration-300 ease-in-out">
           Learn More
-        </button>
+        </a>
+        
       </motion.div>
     </section>
   );

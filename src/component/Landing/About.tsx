@@ -18,7 +18,7 @@ const About = () => {
             <motion.img
               src={AboutImage}
               alt="About TYM Camp"
-              className="relative w-full md:max-w-lg rounded-2xl shadow-xl transform hover:scale-105 transition-transform duration-300"
+              className="relative w-full md:max-w-lg rounded-2xl shadow-xl transform hover:scale-101 transition-transform duration-300"
               whileHover={{ scale: 1.05 }}
             />
           </div>
