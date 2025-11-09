@@ -1,26 +1,31 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import Logo from "../../assets/Logo.png";
-// import { Link } from "react-router-dom";
 
-const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
-  const [isOpen, setIsOpen] = useState(false);
-  
+interface NavItem {
+  id: string;
+  label: string;
+}
+
+const Navbar: React.FC = () => {
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>("home");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
 
-      const sections = document.querySelectorAll("section");
-      let current = "home";
+      const sections: NodeListOf<HTMLElement> = document.querySelectorAll("section");
+      let current: string = "home";
+
       sections.forEach((section) => {
-        const sectionTop = section.offsetTop - 100;
+        const sectionTop: number = section.offsetTop - 100;
         if (window.scrollY >= sectionTop) {
-          current = section.getAttribute("id");
+          current = section.getAttribute("id") || "home";
         }
       });
+
       setActiveSection(current);
     };
 
@@ -28,11 +33,11 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navItems = [
+  const navItems: NavItem[] = [
     { id: "home", label: "Home" },
     { id: "about", label: "About" },
     { id: "howtoregister", label: "How to Register" },
-    { id: "contact", label: "Contact Us" }
+    { id: "contact", label: "Contact Us" },
   ];
 
   return (
@@ -47,7 +52,7 @@ const Navbar = () => {
           href="/"
           className="text-4xl text-[#6A0DAD] font-bold hover:scale-105 transition-transform duration-300"
         >
-          <img src={Logo} alt="" className="h-10"/>
+          <img src={Logo} alt="Logo" className="h-10" />
         </a>
 
         {/* Desktop Menu */}
@@ -71,8 +76,8 @@ const Navbar = () => {
         {/* Get Started Button (desktop only) */}
         <div className="hidden lg:block">
           <a
-            href=""
-            className="bg-[#6A0DAD] text-white px-7 py-3 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300 "
+            href="#"
+            className="bg-[#6A0DAD] text-white px-7 py-3 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
           >
             Register Now
           </a>
@@ -108,7 +113,7 @@ const Navbar = () => {
             ))}
             <li>
               <a
-                href=""
+                href="#"
                 onClick={() => setIsOpen(false)}
                 className="block w-full text-center bg-[#6A0DAD] text-white px-7 py-3 rounded-xl font-semibold"
               >
