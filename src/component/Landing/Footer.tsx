@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
     <div>
       {/* Register Now Call-to-Action */}
       <div className="py-5 lg:max-w-6xl mx-auto max-lg:px-5">
-        <a href="#contact">
+        <a href="">
           <button className="flex items-center justify-between duration-500 py-5 lg:py-10 px-8 bg-[#6A0DAD] rounded-full w-full font-bold text-black hover:bg-[#5b0797] transition-all">
             <span className="lg:text-[97px] text-white text-2xl md:text-4xl lg:px-20">
               Register Now
