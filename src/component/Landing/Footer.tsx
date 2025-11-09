@@ -1,10 +1,13 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import Logo from "../../assets/Logo.png";
+import { href } from "react-router";
 
 const Footer: React.FC = () => {
   return (
     <div>
+      {/* Register Now Call-to-Action */}
       <div className="py-5 lg:max-w-6xl mx-auto max-lg:px-5">
-        <a href="#">
+        <a href="#contact">
           <button className="flex items-center justify-between duration-500 py-5 lg:py-10 px-8 bg-[#6A0DAD] rounded-full w-full font-bold text-black hover:bg-[#5b0797] transition-all">
             <span className="lg:text-[97px] text-white text-2xl md:text-4xl lg:px-20">
               Register Now
@@ -16,6 +19,7 @@ const Footer: React.FC = () => {
         </a>
       </div>
 
+      {/* Footer */}
       <footer className="bg-[#152028] relative overflow-hidden">
         <div className="relative">
           {/* Main footer content */}
@@ -25,32 +29,37 @@ const Footer: React.FC = () => {
               <div>
                 <a
                   href="#home"
-                  className="text-4xl text-[#E00912] font-bold satisfy-regular hover:text-white transition-colors duration-300"
+                  className="text-4xl text-[#6A0DAD] font-bold hover:text-white transition-colors duration-300"
                 >
-                  Rapid Route
+                  <img src={Logo} alt="" className="h-10"/>
                 </a>
               </div>
               <p className="text-gray-300 text-lg leading-relaxed">
-                Powering businesses and individuals with{" "}
-                <span className="text-[#E00912] font-semibold">
-                  fast, reliable, and efficient
-                </span>{" "}
-                transport and logistics solutions. From bulk freight to last-mile
-                delivery, Rapid Route ensures your goods arrive safely and on time—
-                every time.
+                Discover a fun, inspiring, and faith-driven environment for kids to learn, grow, and connect with others. Be part of something amazing this year!
               </p>
 
               {/* Social media */}
               <div className="flex items-center gap-4">
                 <span className="text-white font-medium">Follow Us:</span>
                 <div className="flex gap-3">
-                  {["facebook", "instagram", "twitter", "linkedin"].map((name) => (
-                    <a
-                      key={name}
-                      href="#"
-                      className="w-10 h-10 bg-gray-700 hover:bg-[#E00912] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
-                    />
-                  ))}
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gray-700 hover:bg-[#6A0DAD] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  >
+                    <Facebook size={18} />
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gray-700 hover:bg-[#6A0DAD] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  >
+                    <Instagram size={18} />
+                  </a>
+                  <a
+                    href="#"
+                    className="w-10 h-10 bg-gray-700 hover:bg-[#6A0DAD] text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
+                  >
+                    <Twitter size={18} />
+                  </a>
                 </div>
               </div>
             </div>
@@ -59,26 +68,22 @@ const Footer: React.FC = () => {
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
               {[
                 {
-                  title: "Company",
-                  links: ["About Us", "Our Fleet", "Careers", "News & Insights"],
+                  title: "Quick Links",
+                  links: ["Home", "About", "How To Register", "Contact Us"],
                 },
                 {
-                  title: "Services",
+                  title: "Registration",
                   links: [
-                    "Freight Transport",
-                    "Warehousing",
-                    "Last-Mile Delivery",
-                    "Custom Logistics",
+                    "Fill Form",
+                    "Make Payment",
+                    "Receive Confirmation",
                   ],
+                  href: "#howtoregister",
                 },
                 {
-                  title: "Support",
-                  links: [
-                    "Track Shipment",
-                    "Contact Us",
-                    "Safety & Compliance",
-                    "Terms & Privacy",
-                  ],
+                  title: "Donate",
+                  href: "#contact",
+                  links: ["Make a Donation", "Sponsorship Opportunities", "Volunteer With Us", "Support a Child/Program"],
                 },
               ].map((section) => (
                 <div key={section.title} className="space-y-4">
@@ -87,8 +92,8 @@ const Footer: React.FC = () => {
                     {section.links.map((link) => (
                       <a
                         key={link}
-                        href="#"
-                        className="block text-gray-300 hover:text-[#E00912] transition-colors duration-300"
+                        href={section.href}
+                        className="block text-gray-300 hover:text-[#6A0DAD] transition-colors duration-300"
                       >
                         {link}
                       </a>
@@ -105,7 +110,7 @@ const Footer: React.FC = () => {
               <div className="flex justify-center items-center gap-6 flex-wrap text-gray-300">
                 <div className="flex items-center gap-2">
                   <svg
-                    className="w-5 h-5 text-[#E00912]"
+                    className="w-5 h-5 text-[#6A0DAD]"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -115,13 +120,11 @@ const Footer: React.FC = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  <span className="text-sm">
-                    42B Oworo Road, Oworoshoki, Lagos, Nigeria
-                  </span>
+                  <span className="text-sm">42B Oworo Road, Lagos, Nigeria</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <svg
-                    className="w-5 h-5 text-[#E00912]"
+                    className="w-5 h-5 text-[#6A0DAD]"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -131,14 +134,14 @@ const Footer: React.FC = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <svg
-                    className="w-5 h-5 text-[#E00912]"
+                    className="w-5 h-5 text-[#6A0DAD]"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
                     <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
                     <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
                   </svg>
-                  <span className="text-sm">support@rapidroute.com</span>
+                  <span className="text-sm">support@tymna.com</span>
                 </div>
               </div>
             </div>
@@ -148,9 +151,9 @@ const Footer: React.FC = () => {
           <div className="border-t border-gray-700 py-6 text-center">
             <div className="max-w-6xl mx-auto px-6">
               <p className="text-gray-400">
-                © 2025 Rapid Route. All rights reserved. |{" "}
-                <span className="text-[#E00912]">
-                  Driving logistics forward, one delivery at a time.
+                © 2025 Tym. All rights reserved. |{" "}
+                <span className="text-[#6A0DAD]">
+                  Empowering Youth, Inspiring Tomorrow
                 </span>
               </p>
             </div>

@@ -4,7 +4,7 @@ const Home = () => {
   return (
     <section
       id="home"
-      className="relative w-full md:h-screen py-20 flex items-center justify-center bg-gradient-to-b from-[#e8d4f5] to-[#f5e9fb] overflow-hidden"
+      className="relative w-full md:h-screen py-25 flex items-center justify-center bg-gradient-to-b from-[#e8d4f5] to-[#f5e9fb] overflow-hidden"
     >
       {/* Decorative Blobs */}
       <div className="absolute top-10 left-10 w-60 h-60 bg-[#6A0DAD]/20 rounded-full blur-3xl animate-pulse"></div>
