@@ -1,6 +1,5 @@
-import { ArrowRight, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import { ArrowRight, Facebook, Instagram, Twitter} from "lucide-react";
 import Logo from "../../assets/Logo.png";
-import { href } from "react-router";
 
 const Footer: React.FC = () => {
   return (
@@ -83,7 +82,7 @@ const Footer: React.FC = () => {
                 {
                   title: "Donate",
                   href: "#contact",
-                  links: ["Make a Donation", "Sponsorship Opportunities", "Volunteer With Us", "Support a Child/Program"],
+                  links: ["Make a Donation", "Sponsorship Opportunities", "Volunteer With Us", ""],
                 },
               ].map((section) => (
                 <div key={section.title} className="space-y-4">
