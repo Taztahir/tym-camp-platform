@@ -1,36 +1,81 @@
-const DonateGallery: React.FC = () => {
-  const images = [
-    { src: "/images/program1.jpg", title: "Youth Workshop", desc: "Support our monthly workshops." },
-    { src: "/images/program2.jpg", title: "Community Service", desc: "Help fund local community initiatives." },
-    { src: "/images/program3.jpg", title: "Educational Program", desc: "Support learning programs for youth." },
-    { src: "/images/program4.jpg", title: "Fundraising Event", desc: "Be part of our annual fundraising." },
-  ];
+import React, { useState } from "react";
+
+const Donation: React.FC = () => {
+  const [amount, setAmount] = useState<number | string>("");
+
+  const presetAmounts = [1000, 5000, 10000, 20000];
+
+  const handleDonate = () => {
+    if (!amount || Number(amount) <= 0) {
+      alert("Please enter a valid amount");
+      return;
+    }
+
+    const handler = (window as any).PaystackPop.setup({
+      key: "pk_test_638082473dbf1e2da54e7016eed8f25b27015613", // replace with your public key
+      email: "donor@example.com",
+      amount: Number(amount) * 100, // Paystack uses kobo
+      currency: "NGN",
+      ref: "" + Math.floor(Math.random() * 1000000000 + 1),
+      callback: function (response: any) {
+        alert("Donation successful! Reference: " + response.reference);
+      },
+      onClose: function () {
+        alert("Transaction was not completed, window closed.");
+      },
+    });
+
+    handler.openIframe();
+  };
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-12">
-      <h2 className="text-3xl font-bold text-center text-[#6A0DAD] mb-10">
-        Donate & Support TYM Programs
-      </h2>
-      <div className="grid gap-6 grid-cols-2 lg:grid-cols-4">
-        {images.map((img) => (
-          <div key={img.title} className="relative group overflow-hidden rounded-2xl shadow-lg">
-            <img
-              src={img.src}
-              alt={img.title}
-              className="w-full h-64 object-cover transform transition-transform duration-500 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center text-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-4">
-              <h3 className="text-xl font-bold mb-2">{img.title}</h3>
-              <p className="text-sm mb-4">{img.desc}</p>
-              <button className="bg-[#6A0DAD] hover:bg-[#5b0797] px-4 py-2 rounded-full font-semibold transition-all duration-300">
-                Donate Now
-              </button>
-            </div>
-          </div>
-        ))}
+    <section
+      id="donate"
+      className="py-20 bg-gradient-to-br from-purple-100 to-white flex justify-center items-center"
+    >
+      <div className="max-w-2xl w-full mx-auto text-center px-6">
+        <h2 className="text-4xl font-bold text-[#6A0DAD] mb-4">
+          Support Our Mission 💜
+        </h2>
+        <p className="text-gray-600 mb-8">
+          Your contribution helps us continue our programs and reach more people.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-4 mb-6">
+          {presetAmounts.map((amt) => (
+            <button
+              key={amt}
+              onClick={() => setAmount(amt)}
+              className={`px-6 py-3 rounded-full font-semibold border transition-all duration-300 ${
+                amount === amt
+                  ? "bg-[#6A0DAD] text-white border-[#6A0DAD]"
+                  : "border-gray-300 text-gray-700 hover:bg-purple-50"
+              }`}
+            >
+              ₦{amt.toLocaleString()}
+            </button>
+          ))}
+        </div>
+
+        <div className="mb-6">
+          <input
+            type="number"
+            placeholder="Enter custom amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            className="w-full md:w-1/2 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6A0DAD]"
+          />
+        </div>
+
+        <button
+          onClick={handleDonate}
+          className="bg-[#6A0DAD] text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
+        >
+          Donate Now
+        </button>
       </div>
-    </div>
+    </section>
   );
 };
 
-export default DonateGallery;
+export default Donation;

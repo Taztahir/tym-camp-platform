@@ -2,7 +2,7 @@
 const Registration = () => {
   return (
     <div>
-      
+      jhh
     </div>
   )
 }

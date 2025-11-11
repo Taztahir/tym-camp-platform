@@ -76,7 +76,7 @@ const Navbar: React.FC = () => {
         {/* Get Started Button (desktop only) */}
         <div className="hidden lg:block">
           <a
-            href="#"
+            href="/Registration"
             className="bg-[#6A0DAD] text-white px-7 py-3 rounded-full font-semibold hover:shadow-lg transform hover:-translate-y-1 transition-all duration-300"
           >
             Register Now
@@ -113,7 +113,7 @@ const Navbar: React.FC = () => {
             ))}
             <li>
               <a
-                href="#"
+                href="/Registration"
                 onClick={() => setIsOpen(false)}
                 className="block w-full text-center bg-[#6A0DAD] text-white px-7 py-3 rounded-xl font-semibold"
               >
