@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
+import emailjs from "emailjs-com";
 
 interface FormData {
   fullName: string;
   email: string;
   phone: string;
+  age: string;
+  address: string;
   reference?: string;
 }
 
@@ -14,6 +17,8 @@ const Registration: React.FC = () => {
     fullName: "",
     email: "",
     phone: "",
+    age: "",
+    address: "",
   });
 
   const [isPaying, setIsPaying] = useState(false);
@@ -26,8 +31,8 @@ const Registration: React.FC = () => {
   };
 
   const validateForm = () => {
-    const { fullName, email, phone } = formData;
-    if (!fullName || !email || !phone) {
+    const { fullName, email, phone, age, address } = formData;
+    if (!fullName || !email || !phone || !age || !address) {
       alert("⚠️ Please fill in all fields before proceeding.");
       return false;
     }
@@ -67,6 +72,9 @@ const Registration: React.FC = () => {
         createdAt: serverTimestamp(),
       });
 
+      // Send confirmation email via EmailJS
+      await sendConfirmationEmail(newUser);
+
       setPaymentRef(reference);
       setIsRegistered(true);
       setIsPaying(false);
@@ -74,6 +82,24 @@ const Registration: React.FC = () => {
       console.error("Error saving registration:", error);
       alert("❌ Something went wrong. Please try again.");
       setIsPaying(false);
+    }
+  };
+
+  const sendConfirmationEmail = async (user: FormData) => {
+    try {
+      await emailjs.send(
+        "your_service_id", // 🔧 Replace with your actual EmailJS service ID
+        "your_template_id", // 🔧 Replace with your EmailJS template ID
+        {
+          to_name: user.fullName,
+          to_email: user.email,
+          message: `Congratulations ${user.fullName}! 🎉 You have successfully registered for TYMC Camp. Your payment reference is ${user.reference}. We look forward to seeing you!`,
+        },
+        "your_public_key" // 🔧 Replace with your EmailJS public key
+      );
+      console.log("✅ Email sent successfully to", user.email);
+    } catch (error) {
+      console.error("❌ Failed to send email:", error);
     }
   };
 
@@ -92,7 +118,13 @@ const Registration: React.FC = () => {
           <button
             className="bg-[#6A0DAD] text-white px-6 py-3 rounded-full font-semibold"
             onClick={() => {
-              setFormData({ fullName: "", email: "", phone: "" });
+              setFormData({
+                fullName: "",
+                email: "",
+                phone: "",
+                age: "",
+                address: "",
+              });
               setPaymentRef(null);
               setIsRegistered(false);
             }}
@@ -105,10 +137,7 @@ const Registration: React.FC = () => {
   }
 
   return (
-    <section
-      id="register"
-      className="py-20 bg-[#eee5f5]"
-    >
+    <section id="register" className="py-20 bg-[#eee5f5]">
       <div className="max-w-3xl mx-auto px-5">
         <div className="bg-white shadow-lg rounded-xl p-10 w-full">
           <h2 className="text-3xl font-bold text-center text-[#6A0DAD] mb-6">
@@ -161,6 +190,34 @@ const Registration: React.FC = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6A0DAD]"
                 placeholder="Enter your phone number"
+              />
+            </div>
+
+            <div>
+              <label className="block text-gray-700 font-semibold mb-2">
+                Age
+              </label>
+              <input
+                type="number"
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6A0DAD]"
+                placeholder="Enter your age"
+              />
+            </div>
+
+            <div>
+              <label className="block text-gray-700 font-semibold mb-2">
+                Address
+              </label>
+              <input
+                type="text"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#6A0DAD]"
+                placeholder="Enter your address"
               />
             </div>
 
