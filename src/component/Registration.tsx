@@ -137,7 +137,7 @@ const Registration: React.FC = () => {
   }
 
   return (
-    <section id="register" className="py-20 bg-[#eee5f5]">
+    <section id="register" className="pb-20 bg-[#eee5f5]">
       <div className="max-w-3xl mx-auto px-5">
         <div className="bg-white shadow-lg rounded-xl p-10 w-full">
           <h2 className="text-3xl font-bold text-center text-[#6A0DAD] mb-6">
