@@ -68,7 +68,7 @@ export default function Countdown() {
 
       {/* Pay Button */}
       <motion.a
-        href="#"
+        href="#register"
         whileHover={{ scale: 1.1 }}
         className="relative mt-12 bg-[#6A0DAD] text-white px-10 py-4 rounded-2xl font-bold text-xl flex items-center gap-2 overflow-hidden transition-all"
       >

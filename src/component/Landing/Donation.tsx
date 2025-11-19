@@ -31,7 +31,7 @@ const Donation: React.FC = () => {
   return (
     <section
       id="donate"
-      className="py-20 bg-gradient-to-br from-purple-100 to-white flex justify-center items-center"
+      className="py-20 bg-[#eee5f5] from-purple-100 to-white flex justify-center items-center"
     >
       <div className="max-w-2xl w-full mx-auto text-center px-6">
         <h2 className="text-4xl font-bold text-[#6A0DAD] mb-4">

@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import {
-  collection,
-  onSnapshot,
-  deleteDoc,
-  doc,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import Sidebar from "./AdminSidebar";
+import Navbar from "./AdminNavbar";
+import RegistrationTable from "./AdminRegisteration";
+import Setting from "./AdminSetting"
 import { db } from "../firebase";
+import { collection, onSnapshot } from "firebase/firestore";
 
 interface Registration {
   id: string;
@@ -19,109 +16,95 @@ interface Registration {
 }
 
 const AdminDashboard: React.FC = () => {
+  const [active, setActive] = useState("Dashboard");
   const [registrations, setRegistrations] = useState<Registration[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    let q;
-
-    try {
-      // Try to order by createdAt if it exists
-      q = query(collection(db, "registrations"), orderBy("createdAt", "desc"));
-    } catch (err) {
-      console.warn("⚠️ Could not order by createdAt. Falling back to unordered query.");
-      q = query(collection(db, "registrations"));
-    }
-
-    const unsubscribe = onSnapshot(
-  q,
-  (snapshot) => {
-    const docs: Registration[] = snapshot.docs.map((d) => {
-      const data = d.data() as Omit<Registration, "id">; // type assertion
-      return {
+    // Fetch all registrations in real-time
+    const unsubscribe = onSnapshot(collection(db, "registrations"), (snapshot) => {
+      const docs: Registration[] = snapshot.docs.map((d) => ({
         id: d.id,
-        ...data,
-      };
+        ...(d.data() as Omit<Registration, "id">),
+      }));
+      setRegistrations(docs);
+      setLoading(false);
     });
-
-    console.log("📦 Firestore snapshot:", docs);
-    setRegistrations(docs);
-    setLoading(false);
-  },
-  (error) => {
-    console.error("❌ Firestore snapshot error:", error);
-    setLoading(false);
-  }
-);
-
 
     return () => unsubscribe();
   }, []);
 
-  const handleDelete = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete this registration?")) {
-      try {
-        await deleteDoc(doc(db, "registrations", id));
-        alert("✅ Registration deleted successfully.");
-      } catch (err) {
-        alert("❌ Error deleting registration: " + (err as Error).message);
-      }
+  const totalRegistrations = registrations.length;
+  const totalWithReference = registrations.filter((r) => r.reference).length;
+
+  const renderContent = () => {
+    switch (active) {
+      case "Dashboard":
+        return (
+          <div className="p-6">
+            <h2 className="text-2xl font-bold text-[#6A0DAD] mb-4">
+              Overview
+            </h2>
+
+            {loading ? (
+              <p className="text-gray-500">Loading dashboard stats...</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-white shadow-md p-5 rounded-xl text-center">
+                  <p className="text-gray-500">Total Registrations</p>
+                  <h3 className="text-3xl font-bold text-[#6A0DAD]">
+                    {totalRegistrations}
+                  </h3>
+                </div>
+
+                <div className="bg-white shadow-md p-5 rounded-xl text-center">
+                  <p className="text-gray-500">Verified References</p>
+                  <h3 className="text-3xl font-bold text-[#6A0DAD]">
+                    {totalWithReference}
+                  </h3>
+                </div>
+
+                <div className="bg-white shadow-md p-5 rounded-xl text-center">
+                  <p className="text-gray-500">Unverified</p>
+                  <h3 className="text-3xl font-bold text-[#6A0DAD]">
+                    {totalRegistrations - totalWithReference}
+                  </h3>
+                </div>
+              </div>
+            )}
+          </div>
+        );
+
+      case "Registrations":
+        // Pass your registrations down to the table
+        return <RegistrationTable registrations={registrations} loading={loading} />;
+
+      case "Payments":
+        return (
+          <div className="p-6 text-gray-600">
+            <h2 className="text-2xl font-bold text-[#6A0DAD] mb-3">Payments</h2>
+            <p>Payment records will appear here (hook it to your Paystack data).</p>
+          </div>
+        );
+
+      case "Settings":
+        return (
+          <Setting/>
+        );
+
+      default:
+        return null;
     }
   };
 
-  if (loading) {
-    return <p className="text-center mt-10 text-gray-600">Loading registrations...</p>;
-  }
-
   return (
-    <div className="p-5 max-w-5xl mx-auto">
-      <h2 className="text-3xl font-bold mb-6 text-center text-[#6A0DAD]">
-        🧾 Admin Dashboard
-      </h2>
+    <div className="flex min-h-screen bg-gray-100">
+      <Sidebar active={active} setActive={setActive} />
 
-      {registrations.length === 0 ? (
-        <p className="text-center text-gray-500 text-lg">No registrations found yet.</p>
-      ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full border rounded-lg overflow-hidden shadow-lg">
-            <thead className="bg-[#6A0DAD] text-white">
-              <tr>
-                <th className="p-3 border">#</th>
-                <th className="p-3 border">Full Name</th>
-                <th className="p-3 border">Email</th>
-                <th className="p-3 border">Phone</th>
-                <th className="p-3 border">Reference</th>
-                <th className="p-3 border">Registered On</th>
-                <th className="p-3 border">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {registrations.map((r, index) => (
-                <tr key={r.id} className="text-center bg-gray-50 border-t hover:bg-gray-100">
-                  <td className="p-2 font-semibold">{index + 1}</td>
-                  <td className="p-2">{r.fullName}</td>
-                  <td className="p-2">{r.email}</td>
-                  <td className="p-2">{r.phone}</td>
-                  <td className="p-2 text-green-700 font-medium">{r.reference}</td>
-                  <td className="p-2 text-sm text-gray-600">
-                    {r.createdAt
-                      ? new Date(r.createdAt.seconds * 1000).toLocaleString()
-                      : "—"}
-                  </td>
-                  <td className="p-2">
-                    <button
-                      onClick={() => handleDelete(r.id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 transition-all"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      <div className="flex-1 flex flex-col">
+        <Navbar />
+        <main className="flex-1 overflow-y-auto">{renderContent()}</main>
+      </div>
     </div>
   );
 };

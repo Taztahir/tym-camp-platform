@@ -7,7 +7,7 @@ export default function Contact() {
         <div className="space-y-8">
           {/* Address */}
           <div className="flex items-start gap-4 bg-gray-100 duration-300 hover:scale-95 transition py-10 px-10">
-            <div className="w-16 h-16 flex items-center justify-center bg-red-50 rounded">
+            <div className="w-16 h-16 flex items-center justify-center bg-[#eee5f5] rounded">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-8 h-8 text-[#6A0DAD]"
@@ -39,7 +39,7 @@ export default function Contact() {
 
           {/* Email */}
           <div className="flex items-start gap-4 bg-gray-100 hover:scale-95 transition duration-300 py-10 px-10">
-            <div className="w-16 h-16 flex items-center justify-center bg-red-50 rounded">
+            <div className="w-16 h-16 flex items-center justify-center bg-[#eee5f5] rounded">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-8 h-8 text-[#6A0DAD]"
@@ -65,7 +65,7 @@ export default function Contact() {
 
           {/* Hotline */}
           <div className="flex items-start gap-4 bg-gray-100 transition hover:scale-95 duration-300 py-10 px-10">
-            <div className="w-16 h-16 flex items-center justify-center bg-red-50 rounded">
+            <div className="w-16 h-16 flex items-center justify-center bg-[#eee5f5] rounded">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-8 h-8 text-[#6A0DAD]"
